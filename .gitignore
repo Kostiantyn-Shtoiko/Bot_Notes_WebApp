@@ -1,0 +1,24 @@
+# Python bytecode files
+__pycache__/
+*.pyc
+
+config.py
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# SQLite database files
+*.db
+
+# Flask instance folder
+instance/
+
+# PyCharm project files
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
