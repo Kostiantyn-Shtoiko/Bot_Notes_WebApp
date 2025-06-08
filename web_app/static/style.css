@@ -3,41 +3,48 @@ body {
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
+    font-size: 16px;
 }
 
 .container {
-    max-width: 500px;
-    margin: 50px auto;
+    max-width: 600px;
+    margin: 30px auto;
     background: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 .input-area {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
 }
 
 input[type="text"] {
     flex: 1;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
     border: 1px solid #ccc;
 }
 
 button {
-    padding: 10px 15px;
+    padding: 12px 16px;
+    font-size: 16px;
     border: none;
     background-color: #007bff;
     color: white;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 button:hover {
@@ -51,14 +58,66 @@ ul#notesList {
 
 ul#notesList li {
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
+    flex-direction: column;
+    background-color: #fafafa;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-ul#notesList li button {
-    background-color: red;
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: 3px;
+.note-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.note-text {
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+.note-input {
+    font-size: 16px;
+    padding: 8px;
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+/* 🌐 Адаптація для мобільних */
+@media (max-width: 600px) {
+    body {
+        font-size: 18px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+
+    .note-actions {
+        width: 100%;
+        flex-direction: column;
+    }
 }

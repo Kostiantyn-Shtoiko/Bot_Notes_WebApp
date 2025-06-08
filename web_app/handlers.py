@@ -30,3 +30,18 @@ def add_note():
 def delete_note(note_id):
     database.delete_note(note_id)
     return jsonify({'status': 'deleted'})
+
+# Update note by ID
+@notes_bp.route('/notes/<int:note_id>', methods=['PUT'])
+def update_note(note_id):
+    data = request.get_json()
+    new_text = data.get('text', '').strip()
+
+    if not new_text:
+        return jsonify({'status': 'error', 'message': 'Text is required'}), 400
+
+    success = database.update_note(note_id, new_text)
+    if success:
+        return jsonify({'status': 'success'})
+    else:
+        return jsonify({'status': 'error', 'message': 'Note not found'}), 404

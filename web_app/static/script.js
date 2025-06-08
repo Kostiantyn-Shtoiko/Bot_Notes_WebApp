@@ -13,17 +13,58 @@ function loadNotes() {
 
             data.forEach(note => {
                 const li = document.createElement('li');
-                li.textContent = note.text;
+
+                const contentWrapper = document.createElement('div');
+                contentWrapper.style.flex = '1';
+                contentWrapper.style.display = 'flex';
+                contentWrapper.style.alignItems = 'center';
+                contentWrapper.style.gap = '10px';
+
+                const textSpan = document.createElement('span');
+                textSpan.textContent = note.text;
+
+                const inputField = document.createElement('input');
+                inputField.type = 'text';
+                inputField.value = note.text;
+                inputField.style.display = 'none';
+                inputField.style.flex = '1';
+
+                contentWrapper.appendChild(textSpan);
+                contentWrapper.appendChild(inputField);
+
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.style.backgroundColor = 'orange';
+
+                editBtn.onclick = () => {
+                    const isEditing = inputField.style.display === 'inline';
+
+                    if (isEditing) {
+                        const updatedText = inputField.value.trim();
+                        if (updatedText !== '') {
+                            updateNote(note.id, updatedText);
+                        }
+                    } else {
+                        inputField.style.display = 'inline';
+                        textSpan.style.display = 'none';
+                        editBtn.textContent = 'Save';
+                    }
+                };
 
                 const delBtn = document.createElement('button');
                 delBtn.textContent = 'Delete';
+                delBtn.style.backgroundColor = 'red';
                 delBtn.onclick = () => deleteNote(note.id);
 
+                li.style.gap = '10px';
+                li.appendChild(contentWrapper);
+                li.appendChild(editBtn);
                 li.appendChild(delBtn);
                 list.appendChild(li);
             });
         });
 }
+
 
 // Add new note
 function addNote() {
@@ -41,7 +82,6 @@ function addNote() {
     })
     .then(res => res.json())
     .then(data => {
-        console.log('Server response::', data);
         if (data.status === 'success') {
             input.value = '';
             loadNotes();
@@ -55,6 +95,20 @@ function addNote() {
 function deleteNote(id) {
     fetch(`/notes/${id}`, {
         method: 'DELETE'
+    })
+    .then(() => {
+        loadNotes();
+    });
+}
+
+// Update note by ID
+function updateNote(id, text) {
+    fetch(`/notes/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text })
     })
     .then(() => {
         loadNotes();

@@ -35,3 +35,13 @@ def delete_note(note_id):
     cursor.execute("DELETE FROM notes WHERE id = ?", (note_id,))
     conn.commit()
     conn.close()
+
+def update_note(note_id, new_text):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("UPDATE notes SET text = ? WHERE id = ?", (new_text, note_id))
+    conn.commit()
+    updated = cursor.rowcount
+    conn.close()
+    return updated > 0
+
