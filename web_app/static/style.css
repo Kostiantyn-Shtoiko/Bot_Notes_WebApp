@@ -93,7 +93,6 @@ ul#notesList li {
     box-sizing: border-box;
 }
 
-/* 🌐 Адаптація для мобільних */
 @media (max-width: 600px) {
     body {
         font-size: 18px;
