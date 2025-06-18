@@ -32,9 +32,12 @@ function loadNotes() {
                 contentWrapper.appendChild(textSpan);
                 contentWrapper.appendChild(inputField);
 
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'note-buttons';
+
                 const editBtn = document.createElement('button');
                 editBtn.textContent = 'Edit';
-                editBtn.style.backgroundColor = 'orange';
+                editBtn.className = 'edit-btn';
 
                 editBtn.onclick = () => {
                     const isEditing = inputField.style.display === 'inline';
@@ -53,17 +56,20 @@ function loadNotes() {
 
                 const delBtn = document.createElement('button');
                 delBtn.textContent = 'Delete';
-                delBtn.style.backgroundColor = 'red';
+                delBtn.className = 'delete-btn';
+
                 delBtn.onclick = () => deleteNote(note.id);
 
-                li.style.gap = '10px';
+                buttonContainer.appendChild(editBtn);
+                buttonContainer.appendChild(delBtn);
+
                 li.appendChild(contentWrapper);
-                li.appendChild(editBtn);
-                li.appendChild(delBtn);
+                li.appendChild(buttonContainer);
                 list.appendChild(li);
             });
         });
 }
+
 
 
 // Add new note
